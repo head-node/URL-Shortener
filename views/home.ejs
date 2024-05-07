@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        font-family: "Courier New", Courier, monospace;
+        margin: 0 auto;
+        padding: 0;
+        text-align: center;
+        width: 90%;
+      }
+
+      h1 {
+        margin-top: 10%;
+        font-size: 3em;
+      }
+
+      table {
+        width: 100%;
+      }
+
+      button {
+        padding: 0.625rem 1.25rem;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 0.25rem;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      input {
+        padding: 0.625rem 1.25rem;
+        border-radius: 0.25rem;
+        border: 1px solid #ccc;
+        width: 50%;
+        margin: 10px 0;
+        font-family: "Courier New", Courier, monospace;
+      }
+
+      .url_shortener_form_container {
+        margin-top: 20px;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+  </head>
+
+  <body>
+    <h1>URL Shortener</h1>
+    <% if(locals.id) { %>
+    <p>
+      URL Generated:
+      <a href="/url/<%= locals.id %>">
+        <%= locals.id %>
+      </a>
+    </p>
+    <% } %> <% if (locals.urls) { %>
+    <table>
+      <thead>
+        <th>S. No</th>
+        <th>ShortID</th>
+        <th>Redirect</th>
+        <th>Clicks</th>
+      </thead>
+      <tbody>
+        <% locals.urls.forEach((url , index)=> { %>
+        <tr>
+          <td>
+            <%= index + 1 %>
+          </td>
+          <td>
+            <%= url.shortId %>
+          </td>
+          <td>
+            <%= url.redirectUrl %>
+          </td>
+          <td>
+            <%= url.visitHistory.length %>
+          </td>
+
+          <% }) %>
+        </tr>
+      </tbody>
+    </table>
+    <% } %>
+    <div class="url_shortener_form_container">
+      <h2>Shorten Your URL</h2>
+      <form method="post" action="/url">
+        <label for="url">Enter Your Original URL</label>
+        <input
+          type="text"
+          name="url"
+          id="url"
+          placeholder="https://example.com"
+          required
+        />
+        <button type="submit">Shorten</button>
+      </form>
+    </div>
+  </body>
+</html>
