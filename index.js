@@ -9,9 +9,8 @@ const staticRouter = require('./router/staticRouter');
 const userRouter = require('./router/user');
 
 const app = express();
-const PORT = 8001
-
-connectToMongoDB('mongodb://localhost:27017/short-url');
+const PORT = process.env.PORT || 8000;
+connectToMongoDB(process.env.MONGO_URL  || 'mongodb://localhost:27017/urlshortener');
 
 app.set('view engine', 'ejs'); // telling express that the view enginer is EJS
 app.set('views', path.resolve('./views')); // telling express where the views/ejs-files are located
